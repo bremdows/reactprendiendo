@@ -1,0 +1,32 @@
+.br-followCard{
+    display:flex;
+    align-items: center;
+    color: #fff;
+    font-style: .8rem;
+}
+.br-followCard-header{
+    display:flex;
+    align-items: center;
+    gap: 4px;
+}
+.br-followCard-info{
+    display: flex;
+    flex-direction: column;
+}
+article header span{
+    opacity: .6;
+}
+.br-followCard-avatar{
+    width: 48px;
+    height: 48px;
+    border-radius: 1000px;
+    margin-right: 2px;
+}
+
+.br-followCard-button{
+    margin-left: 16px;
+    border: 0;
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-weight: bold;   
+}
