@@ -1,8 +1,9 @@
 .br-followCard{
     display:flex;
     align-items: center;
+    justify-content: space-between;
     color: #fff;
-    font-style: .8rem;
+    font-size: .8rem;
 }
 .br-followCard-header{
     display:flex;
