@@ -25,9 +25,23 @@ article header span{
 }
 
 .br-followCard-button{
+    cursor: pointer;
     margin-left: 16px;
     border: 0;
     border-radius: 999px;
     padding: 6px 16px;
-    font-weight: bold;   
+    font-weight: bold;  
+    border: 1px solid #000; 
+    transition: .3s ease background-color;
+}
+.br-followCard-button.is-following{
+    border : 1px solid red;
+}
+
+.br-followCard-button:hover{
+    background-color: #09f;
+}
+
+.br-followCard-button.is-following:hover{
+    background: red;
 }
