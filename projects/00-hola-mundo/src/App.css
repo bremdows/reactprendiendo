@@ -34,14 +34,27 @@ article header span{
     border: 1px solid #000; 
     transition: .3s ease background-color;
 }
-.br-followCard-button.is-following{
-    border : 1px solid red;
+.br-followCard-button article{
+    display: none
 }
-
+.br-followCard-button.is-following{
+    border : 1.5px solid #6f6e6e;
+    background: transparent;
+    color: #fff;
+    width: 130px;
+}
 .br-followCard-button:hover{
     background-color: #09f;
 }
-
 .br-followCard-button.is-following:hover{
     background: red;
+}
+.br-followCard-button.is-following:hover .br-followCard-button-text{
+    display:none;
+}
+.br-followCard-button.is-following:hover .br-followCard-button-not-follow{
+    display: block;
+}
+.br-followCard-button-not-follow{
+    display:none;
 }

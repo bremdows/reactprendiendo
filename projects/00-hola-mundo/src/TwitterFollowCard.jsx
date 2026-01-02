@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import './App.css'
 
-export function TwitterFollowCard({children, userName, name, formatUserName, initialIsFollowing}){
+export function TwitterFollowCard({children, userName, formatUserName, initialIsFollowing}){
 
     const [isFollowing, setIsFollowing] = useState(initialIsFollowing)
 
@@ -10,6 +10,10 @@ export function TwitterFollowCard({children, userName, name, formatUserName, ini
     const classButton = isFollowing
     ? 'br-followCard-button is-following'
     : 'br-followCard-button'
+
+    const classNotFollowSpan = isFollowing
+    ? "br-followcard-button-not-follow is-following"
+    : "br-followCard-button-not-follow"
 
     console.log("[Comp] Actualizado desde: " + userName)
 
@@ -26,14 +30,14 @@ export function TwitterFollowCard({children, userName, name, formatUserName, ini
             <header className='br-followCard-header'>
                 <img src={`https://unavatar.io/x/${userName}`} alt="Logo marca" className='br-followCard-avatar'/>
                 <div className='br-followCard-info'>
-                    <strong className='br-followCard-infoUserName'>{name}</strong>
+                    <strong className='br-followCard-infoUserName'>{children}</strong>
                     <span>{formatUserName(userName)}</span>
-                    <p>{children}</p>
                 </div>
             </header>
             <aside>
                 <button className={classButton} onClick={handleClick}>
-                     {textButton}
+                     <span className='br-followCard-button-text'>{textButton}</span>
+                     <span className='br-followCard-button-not-follow'>Dejar de seguir</span>
                 </button>
             </aside>
         </article>
