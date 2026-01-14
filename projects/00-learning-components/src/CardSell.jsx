@@ -1,27 +1,21 @@
 import './App.css'
 
-export function CardSell({idImage, title, userName, category}){
+ export function CardSell({children, idImage, price, category, language}){
     return(
         <article className="card-sell">
-            <figure>
-                <img src={idImage} alt={`Imagen {idImage} no encontrada`} />
-            </figure>
+            <img className="card-image" src={idImage} alt={`Imagen {idImage} no encontrada`} />
             <div className="card-content">
-                <h3 className="card-content-title">{title}</h3>
-                <p className="card-content-name">{userName}</p>
-                <span className="card-category">{category}</span>
+                <h3 className="card-content-title">{children}</h3>
+                <span className="card-content-category">{category}</span>
+                <div className="card-content-price">
+                    <span> from {price} </span>
+                    <span> in {language} </span>
+                </div>
+                <div className="card-button">
+                    <button className="card-button-booking">Booking Event</button>
+                    <button className="card-button-like"> Hearth Icon </button>
+                </div>
             </div>
-            <footer>
-                <div>
-                    <span class="card-footer-like">
-                        <img src="./assets/like.svg" alt="" />
-                    </span>
-                    <span className="card-footer-views"></span>
-                </div>
-                <div>
-                    <span className="card-footer-booking"></span>
-                </div>
-            </footer>
         </article>
     )
 }
