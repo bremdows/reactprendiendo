@@ -69,12 +69,14 @@
 .card-button-booking{
   display: block;
   width: 75%;
-  padding: 1rem 0;
   border: none;
   border-radius: 3rem;
   background: #fff;
   color: #000;
   font-weight: bolder;
+}
+.card-button-booking:active{
+  margin-bottom: 0.2rem;
 }
 .card-button-like{
   display: flex;
@@ -87,4 +89,3 @@
   color : rgb(194, 0, 0);
   font-size: 1.7rem;
 }
-
