@@ -23,10 +23,3 @@ body{
     display: grid;
     place-items: center;
 }
-
-.main-cards{
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(4, 300px);
-    color: #fff;
-}

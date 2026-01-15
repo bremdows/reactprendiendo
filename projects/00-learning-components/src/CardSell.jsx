@@ -1,7 +1,8 @@
 import './App.css'
 import './font-style.css'
 
- export function CardSell({children, idImage, price, category, language}){
+ export function CardSell({children, idImage, price, category, language, isliked}){
+
     return(
         <article className="card-sell">
             <img className="card-image" src={idImage} alt={`Imagen {idImage} no encontrada`} />
@@ -14,7 +15,7 @@ import './font-style.css'
                 </div>
                 <div className="card-button">
                     <button className="card-button-booking">Booking Event</button>
-                    <button className="card-button-like"> Hearth Icon </button>
+                    <button className="card-button-like"> <span className="icon-heart"></span> </button>
                 </div>
             </div>
         </article>

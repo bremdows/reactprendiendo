@@ -1,3 +1,16 @@
+/* 
+ * Contenedor
+ */
+.main-cards{
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(4, 300px);
+    color: #fff;
+}
+/*
+ * Cards
+*/
+
 .card-sell{
   position: relative;
   width: 100%;
@@ -33,12 +46,21 @@
 
 .card-content-price{
   display: flex;
+  align-items: center;
   gap: 1.6rem;
   margin-bottom: 1.2rem;
 }
+.card-content-price p{
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+.card-content-price p strong{
+  margin-left: 0.8rem;
+}
 .card-content-price span{
   font-size: 1.8rem;
-  margin-right: 0.5rem;
+  margin-right: 0.8rem;
 }
 .card-button{
   display: flex;
@@ -47,18 +69,22 @@
 .card-button-booking{
   display: block;
   width: 75%;
-  padding: 1.5rem 0;
+  padding: 1rem 0;
   border: none;
   border-radius: 3rem;
   background: #fff;
   color: #000;
-  font-weight: bold;
+  font-weight: bolder;
 }
 .card-button-like{
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items:center;
   width: 20%;
   height: 5rem;
   border-radius: 50%;
   border: none;
+  color : rgb(194, 0, 0);
+  font-size: 1.7rem;
 }
 

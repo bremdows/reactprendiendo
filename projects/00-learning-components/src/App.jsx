@@ -10,6 +10,7 @@ function App() {
         title="Gira Mundial 2026"
         category="Music"
         price={2500}
+        isliked
       >
           Dua Lipa
       </CardSell>
@@ -21,6 +22,16 @@ function App() {
         price={1500}
       >
         Shakira
+      </CardSell>
+
+      <CardSell
+        idImage="https://m.media-amazon.com/images/M/MV5BMjAwNTE2MDMyMl5BMl5BanBnXkFtZTgwMjAyODM3MTI@._V1_FMjpg_UX1000_.jpg"
+        title="My world in your eyes"
+        category="Music"
+        price={2000}
+        isliked
+      >
+        Selena Gomez
       </CardSell>
     </section>
   )
