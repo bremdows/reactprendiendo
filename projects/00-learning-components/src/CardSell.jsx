@@ -1,4 +1,5 @@
 import './App.css'
+import './font-style.css'
 
  export function CardSell({children, idImage, price, category, language}){
     return(
@@ -8,8 +9,8 @@ import './App.css'
                 <h3 className="card-content-title">{children}</h3>
                 <span className="card-content-category">{category}</span>
                 <div className="card-content-price">
-                    <span> from {price} </span>
-                    <span> in {language} </span>
+                    <p> <span className="icon-buy"></span> from <strong>{price}</strong> </p>
+                    <p> <span className="icon-plane"></span> in {language} </p>
                 </div>
                 <div className="card-button">
                     <button className="card-button-booking">Booking Event</button>

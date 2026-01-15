@@ -32,7 +32,13 @@
 }
 
 .card-content-price{
+  display: flex;
+  gap: 1.6rem;
   margin-bottom: 1.2rem;
+}
+.card-content-price span{
+  font-size: 1.8rem;
+  margin-right: 0.5rem;
 }
 .card-button{
   display: flex;
@@ -44,8 +50,8 @@
   padding: 1.5rem 0;
   border: none;
   border-radius: 3rem;
-  background: #070707;
-  color: #fff;
+  background: #fff;
+  color: #000;
   font-weight: bold;
 }
 .card-button-like{
@@ -55,3 +61,4 @@
   border-radius: 50%;
   border: none;
 }
+
