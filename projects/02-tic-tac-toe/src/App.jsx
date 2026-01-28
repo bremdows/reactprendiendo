@@ -4,8 +4,15 @@ const TURNS = {
   X : 'x',
   O : 'o'
 }
-// Definir un arreglo de 9 elementos y completarlos con null
-const board = Array(9).fill(null)
+
+
+const Square = ({children, updateBoard, indice}) => {
+  return (
+    <div className="square">
+      {children}
+    </div>
+  )
+}
 
 // Así se pueden ir importando imágenes
 // import reactLogo from './assets/react.svg'
@@ -14,6 +21,11 @@ const board = Array(9).fill(null)
 import './App.css'
 
 function App() {
+  
+  // Definir un arreglo de 9 elementos y completarlos con null y establecerlo como el estado inicial
+  const [board, setBoard] = useState( Array(9).fill(null) )
+   
+
 
   return (
     <main className="board">
@@ -22,11 +34,17 @@ function App() {
         {
           board.map((_, index) => {
             return (
-              <div className="cell" key={index}>
-                <span className="cell__content">
-                  {index}
-                </span>
-              </div>
+              <Square
+                key={index}
+                indice={index}
+              >
+                {board[index]}
+              </Square>
+              // <div className="cell" key={index}>
+              //   <span className="cell__content">
+              //     {index}
+              //   </span>
+              // </div>
             )
           })
         }
