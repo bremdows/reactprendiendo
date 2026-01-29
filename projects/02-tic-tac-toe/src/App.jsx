@@ -62,6 +62,10 @@ function App() {
       
     } 
   }
+  
+  const checkEndGame = (newBoard) => {
+    return newBoard.every( (square) => square !== null)
+  }
 
   const updateBoard = (indice) => {
     // Evitar sobreescribir
@@ -79,10 +83,17 @@ function App() {
     // Verificar el ganador
     const newWinner = checkWinner(newBoard)
     if (newWinner){
-      setWinner(!newWinner) // Estos son eventos asincronos por lo que las variables no se actualizan en el orden de ejecución
+      setWinner(newWinner) // Estos son eventos asincronos por lo que las variables no se actualizan en el orden de ejecución
       // * POR LO TANTO AL MOSTRAR EL VALOR DE WINNER (QUE DEBIO ACTUALIZARSE) MUESTRA EL VALOR DE NULL (VALOR INICIAL) PORQUE LOS CAMBIOS NO SON INMEDIATOS 
-      alert(`Gano: ${newWinner}`)
+    }else if(checkEndGame(newBoard)){
+      setWinner(false)
     }
+  }
+
+  const resetGame = () =>{
+    setBoard(Array(9).fill(null))
+    setWinner(null)
+    setTurn(TURNS.X)
   }
 
   return (
@@ -121,6 +132,31 @@ function App() {
           {TURNS.O}
         </Square>
       </section>
+
+      {
+        winner !== null && (
+          <section className="winner">
+            <div className="text">
+              <h2>
+                {
+                  winner === false
+                    ? 'Empate' 
+                    : 'Gano:'
+                }
+              </h2>
+
+              <header className="win">
+                {
+                  winner && <Square> {winner} </Square>
+                }
+              </header>
+              <footer>
+                <button onClick={resetGame}> Empezar de nuevo </button>
+              </footer>
+            </div>
+          </section>
+        )
+      }
     </main>
   )
 }
