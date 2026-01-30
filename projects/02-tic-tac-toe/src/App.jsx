@@ -1,34 +1,18 @@
 import { useState } from 'react'
+import confetti from 'canvas-confetti'
+// import {Square} from './components/Square.jsx'
+import {Square} from './components/Square.jsx'
+import {TURNS, WINNER_COMBO} from './constants/constantes.js'
+// import {} from './'
 
-const TURNS = {
-  X : 'x',
-  O : 'o'
-}
 
-
-const Square = ({children, isSelected, updateBoard, indice}) => {
-
-  const turnClassName = isSelected ? "square is-selected" : "square"
-
-  function handleClick(){
-    updateBoard(indice)
-  }
-
-  return (
-    <div 
-      onClick={handleClick}
-      className={turnClassName}
-    >
-      {children}
-    </div>
-  )
-}
+import './App.css'
 
 // Así se pueden ir importando imágenes
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 
-import './App.css'
+
 
 function App() {
   
@@ -37,17 +21,6 @@ function App() {
   // Array(9).fill(null)
   const [turn, setTurn] = useState(TURNS.X)
   const [winner, setWinner] = useState(null)
-
-  const WINNER_COMBO = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ]
 
   const checkWinner = (boardToCheck) => {
     for (const combo of WINNER_COMBO){
@@ -69,7 +42,7 @@ function App() {
 
   const updateBoard = (indice) => {
     // Evitar sobreescribir
-    if (board[indice]) return
+    if (board[indice] || winner) return
     
     // Actualizar el tablero
     const newBoard = [...board]
@@ -83,6 +56,8 @@ function App() {
     // Verificar el ganador
     const newWinner = checkWinner(newBoard)
     if (newWinner){
+
+      confetti()
       setWinner(newWinner) // Estos son eventos asincronos por lo que las variables no se actualizan en el orden de ejecución
       // * POR LO TANTO AL MOSTRAR EL VALOR DE WINNER (QUE DEBIO ACTUALIZARSE) MUESTRA EL VALOR DE NULL (VALOR INICIAL) PORQUE LOS CAMBIOS NO SON INMEDIATOS 
     }else if(checkEndGame(newBoard)){
@@ -101,14 +76,14 @@ function App() {
       <h1>Tic Tac Toe</h1>
       <section className="game">
         {
-          board.map((_, index) => {
+          board.map((square, index) => {
             return (
               <Square
                 key={index}
                 indice={index}
                 updateBoard={updateBoard}
               >
-                {board[index]}
+                {square}
               </Square>
               // <div className="cell" key={index}>
               //   <span className="cell__content">
