@@ -2,7 +2,9 @@ import { useState } from 'react'
 import confetti from 'canvas-confetti'
 // import {Square} from './components/Square.jsx'
 import {Square} from './components/Square.jsx'
-import {TURNS, WINNER_COMBO} from './constants/constantes.js'
+import { WinnerModal } from './components/WinnerModal.jsx'
+import {TURNS} from './constants/constantes.js'
+import { checkWinner, checkEndGame } from './functions/funciones.js'
 // import {} from './'
 
 
@@ -12,8 +14,6 @@ import './App.css'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 
-
-
 function App() {
   
   // Definir un arreglo de 9 elementos y completarlos con null y establecerlo como el estado inicial
@@ -21,24 +21,7 @@ function App() {
   // Array(9).fill(null)
   const [turn, setTurn] = useState(TURNS.X)
   const [winner, setWinner] = useState(null)
-
-  const checkWinner = (boardToCheck) => {
-    for (const combo of WINNER_COMBO){
-      const [a, b, c] = combo
-      if (
-        boardToCheck[a] &&
-        boardToCheck[a] === boardToCheck[b] &&
-        boardToCheck[a] === boardToCheck[c]
-      ){
-        return boardToCheck[a]
-      }
-      
-    } 
-  }
-  
-  const checkEndGame = (newBoard) => {
-    return newBoard.every( (square) => square !== null)
-  }
+ 
 
   const updateBoard = (indice) => {
     // Evitar sobreescribir
@@ -108,30 +91,8 @@ function App() {
         </Square>
       </section>
 
-      {
-        winner !== null && (
-          <section className="winner">
-            <div className="text">
-              <h2>
-                {
-                  winner === false
-                    ? 'Empate' 
-                    : 'Gano:'
-                }
-              </h2>
-
-              <header className="win">
-                {
-                  winner && <Square> {winner} </Square>
-                }
-              </header>
-              <footer>
-                <button onClick={resetGame}> Empezar de nuevo </button>
-              </footer>
-            </div>
-          </section>
-        )
-      }
+      <WinnerModal winner={winner} resetGame={resetGame}/>
+      
     </main>
   )
 }
