@@ -3,9 +3,10 @@ import './App.css'
 
 
 const TURNS = {
-  X:'x',
+  X: 'x',
   O: 'o'
 }
+
 
 
 
@@ -25,17 +26,29 @@ const Square = ({children, updateBoard, index, isSelected}) => {
   )
 }
 
-const updateBoard = () => {
-  console.log("Presionaste una celda")
-}
+
 
 function App(){
 
+  const [board, setBoard] =  useState(
+    Array(9).fill(null)
+  )
+  const [turn, setTurn] = useState(TURNS.X)
+
+  const updateBoard = (index) => {
+    const newBoard = [...board]
+    newBoard[index] = turn
+    setBoard(newBoard)
+    console.log(newBoard)
+
+    const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
+    setTurn(newTurn)
+  }
+  
   // useState permite gestionar el estado de una variable para poder modificar un componente, su uso esta en el re-renderizado cuando se detecta de un cambio.
 
   // Array(9).fill(null)
-  const [board, setBoard] =  useState(Array(9).fill(null))
-  const [turn, setTurn] = useState(TURNS.X)
+  
 
   return (
     <main className="board">
