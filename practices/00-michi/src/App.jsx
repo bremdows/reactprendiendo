@@ -2,12 +2,21 @@ import { useState } from 'react'
 
 import './App.css'
 
-console.log("Iniciando con el tablero del juego");
-
 const TURNS = {
   X: 'x',
   O: 'o'
 }
+
+const WINNER_COMBOS = [
+  [0, 4, 8],
+  [2, 4, 6],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8]
+]
 
 const Square = ({children, updateBoard, index, isSelected}) => {
 
@@ -29,19 +38,59 @@ const Square = ({children, updateBoard, index, isSelected}) => {
 function App(){
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(TURNS.X)
+  const [winner, setWinner] = useState(null)
+
+
+  const checkWinner = (boardToCheck) => {
+
+    for (const combo of WINNER_COMBOS){
+      const [a, b, c] =  combo
+      if(
+        boardToCheck[a] &&
+        boardToCheck[a] === boardToCheck[b] &&
+        boardToCheck[a] === boardToCheck[c]
+      ){
+        return boardToCheck[a]
+      }
+    }
+    // NO existe ganador (empate)
+    return false
+  }
 
   const updateBoard = (index) => {
-  
-  const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
-  setTurn(newTurn)
 
-  // Establecer nuevo turno
-  
-  const newBoard = [...board]
-  newBoard[index] = turn
-  setBoard(newBoard)
-  
-}
+    // Finalizar el juego cuando se tenga un ganador y evitar que los lugares ocupados (con marca) se actualizen
+
+    // Lo que hace es preguntar por el elemento en el indice especifico y si existe algo, simplemente retorna (finaliza la función) sin aplicar un cambio
+    
+    // La misma lógica se aplica para el ganador, si existe un ganador ya no se pueden realizar más jugadas
+
+    if (board[index] || winner) return
+
+    // Actualizar el tablero
+    const newBoard = [...board]
+    newBoard[index] = turn
+    setBoard(newBoard)
+
+    // Establecer nuevo turno
+    const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
+    setTurn(newTurn)
+
+    // Establecer el estado del ganador
+    const newWinner = checkWinner(newBoard)
+
+    // Si existe un ganador actualizar el estado
+    if(newWinner){
+      setWinner(newWinner)
+      console.log(newWinner)
+    }
+  }
+
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    setTurn(TURNS.X)
+    setWinner(null)
+  }
 
   return (
     <main className="board">
@@ -49,6 +98,9 @@ function App(){
         <h1>Tres en raya</h1>
         <p className="board__description">Representaciòn digital del conocido juego: Michi</p>
       </header>
+      <section className="reset">
+        <button onClick={resetGame}>Reiniciar Partida</button>
+      </section>
       <section className="game">
         {
           board.map((_, index) => {
@@ -77,8 +129,24 @@ function App(){
         </Square>
       </section>
 
-      {/* Agregar el turno del juego */}
-
+      {/* Agregar un renderizado condicional */}
+      {
+        winner !== null && (
+          <section className="winner">
+            <div className="text">
+              <h2>
+                { winner === false ? "Empate" : "Ganó: "}
+              </h2>
+              <header className="win">
+                {winner && <Square>{winner}</Square>}
+              </header>
+              <footer>
+                <button onClick={resetGame}> Reiniciar Juego </button>
+              </footer>
+            </div>
+          </section>
+        )
+      }
     </main>
   )
 }

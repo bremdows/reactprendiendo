@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/bremdows/reactprendiendo/issues"
   },
-  "homepage": "https://github.com/bremdows/reactprendiendo#readme"
+  "homepage": "https://github.com/bremdows/reactprendiendo#readme",
+  "dependencies": {
+    "canvas-confetti": "1.9.4"
+  }
 }
