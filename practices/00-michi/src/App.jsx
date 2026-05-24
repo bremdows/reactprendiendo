@@ -12,7 +12,7 @@ const TURNS = {
 const Square = ({children, updateBoard, index, isSelected}) => {
 
   function handleClick(){
-    updateBoard()
+    updateBoard(index)
   }
 
   // Definir una clase (para modificar el juego) en función al estado de turno (turn)
@@ -25,21 +25,29 @@ const Square = ({children, updateBoard, index, isSelected}) => {
   )
 }
 
-const updateBoard = () => {
-  console.log("Turno jugado");
-}
 
 function App(){
   const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(TURNS.X)
 
-  console.log(board)
+  const updateBoard = (index) => {
+  
+  const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
+  setTurn(newTurn)
+
+  // Establecer nuevo turno
+  
+  const newBoard = [...board]
+  newBoard[index] = turn
+  setBoard(newBoard)
+  
+}
 
   return (
     <main className="board">
       <header className="instrucciones">
         <h1>Tres en raya</h1>
-        <p>Es un juego popular que se gana al dibujar 3 simbolos seguidos en la rejilla</p>
+        <p className="board__description">Representaciòn digital del conocido juego: Michi</p>
       </header>
       <section className="game">
         {
@@ -47,12 +55,12 @@ function App(){
             return (
               <Square
                 // el parámero key permite identificar de manera unica a un elemento evitando errores en la actualización del estado.
-                key={index} 
+                key={index}
                 index={index}
                 updateBoard={updateBoard}
               >
                 {/* El contenido de un elemento se asigna automaticamente al parámetro children del componente*/}
-                {}
+                {board[index]}
               </Square>
             ) 
           })
