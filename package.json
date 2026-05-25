@@ -19,5 +19,11 @@
   "homepage": "https://github.com/bremdows/reactprendiendo#readme",
   "dependencies": {
     "canvas-confetti": "1.9.4"
+  },
+  "devDependencies": {
+    "standard": "^17.1.2"
+  },
+  "eslintConfig": {
+    "extends" : "./node_modules/standar/eslintrc.json"
   }
 }
