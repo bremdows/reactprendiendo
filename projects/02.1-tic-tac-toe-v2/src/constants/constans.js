@@ -1,8 +1,8 @@
 
 
 const TURNS = {
-  X: 'x',
-  O: 'o'
+  X: 'メ',
+  O: '◯'
 }
 
 const WINNER_COMBOS = [

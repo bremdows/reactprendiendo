@@ -1,21 +1,37 @@
 import { useState } from 'react'
 import confetti from 'canvas-confetti'
 
-import {Square} from './components/Square'
+import {Square} from './components/Square.jsx'
+import { WinnerModal } from './components/WinnerModal.jsx'
+
 import { checkWinner, checkEndGame } from './logic/logica'
 import {TURNS} from './constants/constans.js'
+import { saveStorage, resetFromStorage } from './local/local.js'
 
 import './App.css'
-import { WinnerModal } from './components/WinnerModal.jsx'
 
 
 
 function App(){
   // Estados de juego
-  const [board, setBoard] =  useState(
-    Array(9).fill(null)
-  )
-  const [turn, setTurn] = useState(TURNS.X)
+  console.log("render");
+  // Para iniciar el hook useState también se puede usar un callback, permite un mayor control, además cada useSatte se
+  const [board, setBoard] =  useState( () => {
+
+    // 1. Recupera el estado del tablero desde el local storage
+    // 2. Si el local storage no esta vacio el estado se inicia con el valor almacenado
+    // 3. En caso este vacio el board se inicia con el arreglo vacio (opción por defecto)
+    console.log("Inicializando el estado del board");
+    const boardFromStorage = window.localStorage.getItem('board')
+    if (boardFromStorage) return JSON.parse(boardFromStorage)
+    return Array(9).fill(null)
+  })
+
+  const [turn, setTurn] = useState(() => {
+    const turnFromStorage = window.localStorage.getItem('turn')
+    if (turnFromStorage) return JSON.parse(turnFromStorage)
+    return TURNS.X
+  })
   const [winner, setWinner] = useState(null)
 
   
@@ -33,6 +49,12 @@ function App(){
     // Cambiar el turno
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
+
+    // Guardar en el localStorage
+    saveStorage({
+      board: newBoard,
+      turn: newTurn
+    })
 
     // Verificar si existe un ganador
     // Se utiliza newBoard porque es el tablero que tiene la versión más actualizada del estado del tablero
@@ -59,6 +81,8 @@ function App(){
     setBoard(Array(9).fill(null))
     setTurn(TURNS.X)
     setWinner(null)
+
+    resetFromStorage()
   }
   
   // useState permite gestionar el estado de una variable para poder modificar un componente, su uso esta en el re-renderizado cuando se detecta de un cambio.  
@@ -96,7 +120,7 @@ function App(){
       </section>
 
       <WinnerModal winner={winner} resetGame={resetGame}></WinnerModal>
-            
+
     </main>
   )
 }
