@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import confetti from 'canvas-confetti'
 
 import './App.css'
 
@@ -54,7 +55,7 @@ function App(){
       }
     }
     // NO existe ganador (empate)
-    return false
+    return null
   }
 
   const updateBoard = (index) => {
@@ -78,11 +79,18 @@ function App(){
 
     // Establecer el estado del ganador
     const newWinner = checkWinner(newBoard)
+    const isGameComplete = newBoard.every((square) => {
+      return square != null
+    })
 
     // Si existe un ganador actualizar el estado
     if(newWinner){
       setWinner(newWinner)
-      console.log(newWinner)
+      confetti()
+      // console.log(newWinner)
+    }else if (isGameComplete){
+      // Establecer condición para el empate
+      setWinner(false)
     }
   }
 
@@ -103,7 +111,7 @@ function App(){
       </section>
       <section className="game">
         {
-          board.map((_, index) => {
+          board.map((square, index) => {
             return (
               <Square
                 // el parámero key permite identificar de manera unica a un elemento evitando errores en la actualización del estado.
@@ -112,7 +120,7 @@ function App(){
                 updateBoard={updateBoard}
               >
                 {/* El contenido de un elemento se asigna automaticamente al parámetro children del componente*/}
-                {board[index]}
+                {square}
               </Square>
             ) 
           })
@@ -135,7 +143,7 @@ function App(){
           <section className="winner">
             <div className="text">
               <h2>
-                { winner === false ? "Empate" : "Ganó: "}
+                { winner === false ? "Empate" : "Ganó"}
               </h2>
               <header className="win">
                 {winner && <Square>{winner}</Square>}
