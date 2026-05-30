@@ -7,7 +7,7 @@ const TURNS = {
   X: 'x',
   O: 'o'
 }
-
+// TODO: AGREGAR LOCALSTORAGE PARA MANTENER EL ESTADO DEL JUEGO
 const WINNER_COMBOS = [
   [0, 4, 8],
   [2, 4, 6],
@@ -37,10 +37,21 @@ const Square = ({children, updateBoard, index, isSelected}) => {
 
 
 function App(){
-  const [board, setBoard] = useState(Array(9).fill(null))
-  const [turn, setTurn] = useState(TURNS.X)
-  const [winner, setWinner] = useState(null)
+  const [board, setBoard] = useState( () => {
+    if (window.localStorage.getItem("board")) {
+      return JSON.parse(window.localStorage.getItem("board"))
+    }
+    return Array(9).fill(null)
+  })
+  const [turn, setTurn] = useState( () => {
+    if(window.localStorage.getItem("turn")){
+      return JSON.parse(window.localStorage.getItem("turn"))
+    }
+    return TURNS.X
+  })
 
+
+  const [winner, setWinner] = useState(null)
 
   const checkWinner = (boardToCheck) => {
 
@@ -77,6 +88,10 @@ function App(){
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
 
+    // Registrado el estado del tablero y turno en el localStorage
+    window.localStorage.setItem("board", JSON.stringify(newBoard))
+    window.localStorage.setItem("turn", JSON.stringify(newTurn))
+
     // Establecer el estado del ganador
     const newWinner = checkWinner(newBoard)
     const isGameComplete = newBoard.every((square) => {
@@ -98,6 +113,11 @@ function App(){
     setBoard(Array(9).fill(null))
     setTurn(TURNS.X)
     setWinner(null)
+
+    // Borrar los valores almacenados en el localStorage
+    window.localStorage.removeItem("board")
+    window.localStorage.removeItem("turn")
+    
   }
 
   return (
